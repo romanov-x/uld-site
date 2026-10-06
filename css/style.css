@@ -544,6 +544,7 @@ button {
 .hero__title-main {
   font-size: clamp(88px, 13.9vw, 200px);
   line-height: 0.84;
+  white-space: nowrap;
   animation-delay: 0.15s;
 }
 
@@ -619,12 +620,12 @@ button {
 .fight__inner {
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 28px;
   padding-block: 28px;
 }
 
 .fight__head {
-  flex: 0 0 150px;
+  flex: 0 0 132px;
 }
 
 .fight__title {
@@ -653,7 +654,7 @@ button {
   align-items: center;
   gap: 16px;
   min-width: 0;
-  padding-inline: 28px;
+  padding-inline: 22px;
   border-left: 1px solid var(--color-line);
 }
 
@@ -1497,7 +1498,7 @@ button {
 }
 
 @keyframes tick {
-  from { transform: translateY(-40%); opacity: 0; }
+  from { transform: translateY(-28%); opacity: 0.35; }
   to { transform: none; opacity: 1; }
 }
 
@@ -1519,6 +1520,10 @@ button {
     --section-gap: 120px;
     --header-height: 84px;
   }
+
+  .fight__inner { gap: 40px; }
+  .fight__head { flex-basis: 150px; }
+  .fight__item { padding-inline: 40px; }
 
   .hero { min-height: 820px; }
   .hero__title-main { font-size: clamp(200px, 12.4vw, 248px); }
@@ -1546,11 +1551,25 @@ button {
   .nav__list { gap: 20px; }
   .header__link { display: none; }
 
-  .fight__inner { gap: 28px; }
-  .fight__item { padding-inline: 24px; gap: 12px; }
-  .fight__place { font-size: 44px; }
-  .fight__name { font-size: 15px; }
-  .fight__info { font-size: 12px; }
+  .fight__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .fight__head { flex: none; }
+  .fight__list { flex-direction: column; }
+
+  .fight__item,
+  .fight__item:first-child,
+  .fight__item:last-child {
+    padding: 12px 0;
+    border-left: 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .fight__item:last-child { border-bottom: 0; }
+  .fight__place { width: 32px; font-size: 40px; }
 
   .standings__grid { grid-template-columns: minmax(0, 1fr) 340px; gap: 32px; }
   .table__cell_type_num { display: none; }
@@ -1603,32 +1622,13 @@ button {
   .hero__title-main { font-size: clamp(88px, 21vw, 168px); }
   .hero__title-sub { font-size: clamp(36px, 8.6vw, 68px); }
 
-  .fight__inner {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 8px;
-  }
-
-  .fight__head { flex: none; }
-  .fight__list { flex-direction: column; }
-
-  .fight__item,
-  .fight__item:first-child,
-  .fight__item:last-child {
-    padding: 12px 0;
-    border-left: 0;
-    border-bottom: 1px solid var(--color-line);
-  }
-
-  .fight__item:last-child { border-bottom: 0; }
-  .fight__place { width: 32px; font-size: 40px; }
 
   .section__head { margin-bottom: 36px; }
   .section__title { font-size: 60px; }
 
   .tickets__list { gap: 16px; }
   .ticket { padding: 24px 20px; }
-  .ticket__top { flex-wrap: wrap; }
+  .ticket__top { flex-wrap: wrap; align-content: flex-start; min-height: 58px; margin-bottom: 12px; }
   .ticket__value { font-size: 64px; }
   .ticket__currency { font-size: 22px; }
   .ticket__perk { font-size: 14px; }
@@ -1675,7 +1675,7 @@ button {
   .hero__inner { padding-block: 0 36px; }
   .hero__content { gap: 18px; align-items: stretch; }
   .hero__title { gap: 2px; }
-  .hero__title-main { font-size: clamp(72px, 23.6vw, 132px); }
+  .hero__title-main { font-size: clamp(64px, 22vw, 132px); }
   .hero__title-sub { font-size: clamp(30px, 9.7vw, 54px); }
   .hero__tag-text { font-size: 13px; }
   .hero__meta { font-size: 15px; line-height: 1.4; }
