@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ru" class="page">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ULD — Уральская Лига Дрифта</title>
+  <meta name="description" content="Уральская Лига Дрифта: билеты на этапы, турнирная таблица, прямые трансляции и новости чемпионата УрФО.">
+  <meta name="theme-color" content="#0A0A0B">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Sofia+Sans+Extra+Condensed:ital,wght@1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script>document.documentElement.classList.add('page_js');</script>
+</head>
+<body class="page__body">
+
+  <a class="skip-link" href="#main">К содержимому</a>
+
+  <!-- ШАПКА -->
+  <header class="header" data-header>
+    <div class="container header__inner">
+      <a class="logo header__logo" href="./" aria-label="ULD — Уральская Лига Дрифта, на главную">
+        <img class="logo__img" src="img/logo.svg" width="168" height="44" alt="ULD — Уральская Лига Дрифта">
+      </a>
+
+      <nav class="nav header__nav" aria-label="Основное меню">
+        <ul class="nav__list">
+          <li class="nav__item"><a class="nav__link" href="#season">Этапы</a></li>
+          <li class="nav__item"><a class="nav__link" href="#standings">Результаты</a></li>
+          <li class="nav__item"><a class="nav__link" href="#standings">Пилоты</a></li>
+          <li class="nav__item"><a class="nav__link" href="#standings">Команды</a></li>
+          <li class="nav__item"><a class="nav__link" href="#live">Трансляция</a></li>
+          <li class="nav__item"><a class="nav__link" href="#news">Новости</a></li>
+          <li class="nav__item"><a class="nav__link" href="#news">Медиа</a></li>
+        </ul>
+      </nav>
+
+      <a class="header__link" href="#footer">Участникам</a>
+      <a class="button button_size_s header__button" href="#tickets">Купить билет</a>
+
+      <button class="burger header__burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="menu" data-menu-toggle>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+        <span class="burger__line"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- МОБИЛЬНОЕ МЕНЮ -->
+  <div class="menu" id="menu" data-menu aria-hidden="true">
+    <div class="menu__overlay" data-menu-close></div>
+    <div class="menu__panel" role="dialog" aria-modal="true" aria-label="Меню">
+      <nav class="menu__nav" aria-label="Мобильное меню">
+        <a class="menu__link" href="#season" data-menu-close>Этапы</a>
+        <a class="menu__link" href="#standings" data-menu-close>Результаты</a>
+        <a class="menu__link" href="#standings" data-menu-close>Пилоты</a>
+        <a class="menu__link" href="#standings" data-menu-close>Команды</a>
+        <a class="menu__link" href="#live" data-menu-close>Трансляция</a>
+        <a class="menu__link" href="#news" data-menu-close>Новости</a>
+        <a class="menu__link" href="#footer" data-menu-close>Участникам</a>
+      </nav>
+      <div class="menu__footer">
+        <a class="button menu__button" href="#tickets" data-menu-close>Купить билет</a>
+        <a class="menu__contact" href="tel:+79097433347">+7-909-74-333-47</a>
+        <a class="menu__contact" href="mailto:info@uraldrift.ru">info@uraldrift.ru</a>
+      </div>
+    </div>
+  </div>
+
+  <main class="main" id="main">
+
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero__media">
+        <div class="photo hero__photo"><span class="photo__label">Фото</span><span class="photo__caption">Машина с дымом</span></div>
+      </div>
+      <div class="container hero__inner">
+        <div class="hero__content">
+          <p class="hero__tag">
+            <span class="chip">Финал сезона</span>
+            <span class="hero__tag-text">4 этап · Чемпионат УрФО 2026</span>
+          </p>
+          <h1 class="hero__title" id="hero-title">
+            <span class="hero__title-line"><span class="hero__title-main">Это финал</span></span>
+            <span class="hero__title-line"><span class="hero__title-sub">Чемпион решится здесь</span></span>
+          </h1>
+          <p class="hero__meta">27 сентября, воскресенье · Трасса 74, Челябинск</p>
+
+          <!-- data-demo-offset: демо-таймер (секунд от загрузки). На проде заменить на data-deadline="2026-09-27T12:00:00+05:00" -->
+          <div class="countdown hero__countdown" data-countdown data-demo-offset="1068330" role="timer" aria-label="До старта этапа">
+            <div class="countdown__item"><span class="countdown__value" data-countdown-days>12</span><span class="countdown__label">дней</span></div>
+            <div class="countdown__item"><span class="countdown__value" data-countdown-hours>08</span><span class="countdown__label">часов</span></div>
+            <div class="countdown__item"><span class="countdown__value" data-countdown-minutes>45</span><span class="countdown__label">минут</span></div>
+            <div class="countdown__item"><span class="countdown__value" data-countdown-seconds>30</span><span class="countdown__label">секунд</span></div>
+          </div>
+
+          <div class="hero__actions">
+            <a class="button hero__button" href="#tickets">Купить билет — от 800 ₽</a>
+            <a class="button button_theme_outline hero__button" href="#live">Смотреть трансляцию</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- БОРЬБА ЗА ТИТУЛ -->
+    <section class="fight" aria-label="Борьба за титул">
+      <div class="container fight__inner">
+        <div class="fight__head" data-reveal="left">
+          <h2 class="fight__title">Борьба за титул</h2>
+          <p class="fight__note">После 3 этапов</p>
+        </div>
+        <ol class="fight__list">
+          <li class="fight__item" data-reveal="up" style="--i:0">
+            <span class="fight__place fight__place_first">1</span>
+            <div class="fight__pilot"><span class="fight__name">Семён Васильев</span><span class="fight__info">№1 · Челябинск · BMW E36</span></div>
+            <div class="fight__score"><span class="fight__points" data-count="520">520</span><span class="fight__gap">лидер</span></div>
+          </li>
+          <li class="fight__item" data-reveal="up" style="--i:1">
+            <span class="fight__place">2</span>
+            <div class="fight__pilot"><span class="fight__name">Владимир Вовк</span><span class="fight__info">№36 · Челябинск · BMW E36</span></div>
+            <div class="fight__score"><span class="fight__points" data-count="498">498</span><span class="fight__gap">−22 очка</span></div>
+          </li>
+          <li class="fight__item" data-reveal="up" style="--i:2">
+            <span class="fight__place">3</span>
+            <div class="fight__pilot"><span class="fight__name">Алексей Мосейчук</span><span class="fight__info">№7 · Екатеринбург · Lexus IS 200</span></div>
+            <div class="fight__score"><span class="fight__points" data-count="492">492</span><span class="fight__gap">−28 очков</span></div>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- БИЛЕТЫ -->
+    <section class="section tickets" id="tickets" aria-labelledby="tickets-title">
+      <div class="container">
+        <header class="section__head" data-reveal="up">
+          <div class="section__heading">
+            <h2 class="section__title" id="tickets-title">Билеты на финал</h2>
+            <p class="section__subtitle">27 сентября · Трасса 74, Челябинск</p>
+          </div>
+          <a class="section__link" href="#tickets">Все категории</a>
+        </header>
+
+        <ul class="tickets__list">
+          <li class="ticket tickets__item" data-reveal="up" style="--i:0">
+            <div class="ticket__top"><h3 class="ticket__name">Стандарт</h3></div>
+            <p class="ticket__price"><span class="ticket__value">800</span><span class="ticket__currency">₽</span></p>
+            <p class="ticket__text">Увидеть всё своими глазами.</p>
+            <ul class="ticket__perks">
+              <li class="ticket__perk">Вход на трибуны</li>
+              <li class="ticket__perk">Свободная рассадка</li>
+              <li class="ticket__perk">Фан-зона и фуд-корт</li>
+            </ul>
+            <a class="button button_theme_outline ticket__button" href="#tickets">Выбрать</a>
+          </li>
+          <li class="ticket ticket_featured tickets__item" data-reveal="up" style="--i:1">
+            <div class="ticket__top"><h3 class="ticket__name">Премиум</h3><span class="chip">Выбор зрителей</span></div>
+            <p class="ticket__price"><span class="ticket__value">1 500</span><span class="ticket__currency">₽</span></p>
+            <p class="ticket__text">Ближе к трассе и к пилотам.</p>
+            <ul class="ticket__perks">
+              <li class="ticket__perk">Всё из «Стандарта»</li>
+              <li class="ticket__perk">Трибуна напротив судейской зоны</li>
+              <li class="ticket__perk">Проход в паддок к машинам</li>
+            </ul>
+            <a class="button ticket__button" href="#tickets">Выбрать</a>
+          </li>
+          <li class="ticket tickets__item" data-reveal="up" style="--i:2">
+            <div class="ticket__top"><h3 class="ticket__name">Премиум плюс</h3></div>
+            <p class="ticket__price"><span class="ticket__value">3 000</span><span class="ticket__currency">₽</span></p>
+            <p class="ticket__text">Максимум этапа без очередей.</p>
+            <ul class="ticket__perks">
+              <li class="ticket__perk">Всё из «Премиума»</li>
+              <li class="ticket__perk">Отдельная VIP-зона с лаунжем</li>
+              <li class="ticket__perk">Автограф-сессия с пилотами</li>
+              <li class="ticket__perk">Сувенир ULD</li>
+            </ul>
+            <a class="button button_theme_outline ticket__button" href="#tickets">Выбрать</a>
+          </li>
+        </ul>
+        <p class="tickets__note" data-reveal="up">Электронный билет придёт на почту сразу после оплаты. Оплата картой или через СБП.</p>
+      </div>
+    </section>
+
+    <!-- ТУРНИРНАЯ ТАБЛИЦА -->
+    <section class="section standings" id="standings" aria-labelledby="standings-title">
+      <div class="container">
+        <header class="section__head" data-reveal="up">
+          <div class="section__heading">
+            <h2 class="section__title" id="standings-title">Турнирная таблица</h2>
+            <p class="section__subtitle">После 3 этапов из 4 · Чемпионат УрФО 2026</p>
+          </div>
+          <a class="section__link" href="#standings">Полная таблица</a>
+        </header>
+
+        <div class="standings__grid">
+          <div class="standings__pilots">
+            <h3 class="standings__caption" data-reveal="up">Личный зачёт</h3>
+            <table class="table standings__table">
+              <thead class="table__head">
+                <tr class="table__row">
+                  <th class="table__cell table__cell_type_place" scope="col"><abbr title="Место">М</abbr></th>
+                  <th class="table__cell table__cell_type_num" scope="col">№</th>
+                  <th class="table__cell table__cell_type_pilot" scope="col">Пилот</th>
+                  <th class="table__cell table__cell_type_stage" scope="col">1 эт.</th>
+                  <th class="table__cell table__cell_type_stage" scope="col">2 эт.</th>
+                  <th class="table__cell table__cell_type_stage" scope="col">3 эт.</th>
+                  <th class="table__cell table__cell_type_total" scope="col">Очки</th>
+                </tr>
+              </thead>
+              <tbody class="table__body">
+                <tr class="table__row table__row_leader" data-reveal="left" style="--i:0">
+                  <td class="table__cell table__cell_type_place table__cell_top">1</td><td class="table__cell table__cell_type_num">1</td>
+                  <td class="table__cell table__cell_type_pilot"><span class="table__name">Семён Васильев</span><span class="table__info">Челябинск · BMW E36</span></td>
+                  <td class="table__cell table__cell_type_stage">210</td><td class="table__cell table__cell_type_stage">119</td><td class="table__cell table__cell_type_stage">191</td>
+                  <td class="table__cell table__cell_type_total">520</td>
+                </tr>
+                <tr class="table__row" data-reveal="left" style="--i:1">
+                  <td class="table__cell table__cell_type_place table__cell_top">2</td><td class="table__cell table__cell_type_num">36</td>
+                  <td class="table__cell table__cell_type_pilot"><span class="table__name">Владимир Вовк</span><span class="table__info">Челябинск · BMW E36</span></td>
+                  <td class="table__cell table__cell_type_stage">179</td><td class="table__cell table__cell_type_stage">197</td><td class="table__cell table__cell_type_stage">122</td>
+                  <td class="table__cell table__cell_type_total">498</td>
+                </tr>
+                <tr class="table__row" data-reveal="left" style="--i:2">
+                  <td class="table__cell table__cell_type_place table__cell_top">3</td><td class="table__cell table__cell_type_num">7</td>
+                  <td class="table__cell table__cell_type_pilot"><span class="table__name">Алексей Мосейчук</span><span class="table__info">Екатеринбург · Lexus IS 200</span></td>
+                  <td class="table__cell table__cell_type_stage">231</td><td class="table__cell table__cell_type_stage">101</td><td class="table__cell table__cell_type_stage">160</td>
+                  <td class="table__cell table__cell_type_total">492</td>
+                </tr>
+                <tr class="table__row" data-reveal="left" style="--i:3">
+                  <td class="table__cell table__cell_type_place">4</td><td class="table__cell table__cell_type_num">19</td>
+                  <td class="table__cell table__cell_type_pilot"><span class="table__name">Максим Ахтямов</span><span class="table__info">Челябинск · Nissan Silvia</span></td>
+                  <td class="table__cell table__cell_type_stage">—</td><td class="table__cell table__cell_type_stage">185</td><td class="table__cell table__cell_type_stage">222</td>
+                  <td class="table__cell table__cell_type_total">407</td>
+                </tr>
+                <tr class="table__row" data-reveal="left" style="--i:4">
+                  <td class="table__cell table__cell_type_place">5</td><td class="table__cell table__cell_type_num">23</td>
+                  <td class="table__cell table__cell_type_pilot"><span class="table__name">Евгений Корнев</span><span class="table__info">Екатеринбург · Toyota Supra</span></td>
+                  <td class="table__cell table__cell_type_stage">—</td><td class="table__cell table__cell_type_stage">222</td><td class="table__cell table__cell_type_stage">179</td>
+                  <td class="table__cell table__cell_type_total">401</td>
+                </tr>
+                <tr class="table__row" data-reveal="left" style="--i:5">
+                  <td class="table__cell table__cell_type_place">6</td><td class="table__cell table__cell_type_num">33</td>
+                  <td class="table__cell table__cell_type_pilot"><span class="table__name">Константин Фёдоров</span><span class="table__info">Екатеринбург · BMW E30</span></td>
+                  <td class="table__cell table__cell_type_stage">119</td><td class="table__cell table__cell_type_stage">137</td><td class="table__cell table__cell_type_stage">131</td>
+                  <td class="table__cell table__cell_type_total">387</td>
+                </tr>
+                <tr class="table__row" data-reveal="left" style="--i:6">
+                  <td class="table__cell table__cell_type_place">7</td><td class="table__cell table__cell_type_num">17</td>
+                  <td class="table__cell table__cell_type_pilot"><span class="table__name">Никита Белиоглов</span><span class="table__info">Челябинск · Toyota Corolla V8</span></td>
+                  <td class="table__cell table__cell_type_stage">122</td><td class="table__cell table__cell_type_stage">99</td><td class="table__cell table__cell_type_stage">97</td>
+                  <td class="table__cell table__cell_type_total">318</td>
+                </tr>
+                <tr class="table__row" data-reveal="left" style="--i:7">
+                  <td class="table__cell table__cell_type_place">8</td><td class="table__cell table__cell_type_num">2</td>
+                  <td class="table__cell table__cell_type_pilot"><span class="table__name">Виктор Щеклеин</span><span class="table__info">Екатеринбург · BMW E30</span></td>
+                  <td class="table__cell table__cell_type_stage">119</td><td class="table__cell table__cell_type_stage">84</td><td class="table__cell table__cell_type_stage">82</td>
+                  <td class="table__cell table__cell_type_total">285</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <aside class="teams standings__teams" data-reveal="right" aria-labelledby="teams-title">
+            <h3 class="teams__title" id="teams-title">Командный зачёт</h3>
+            <ol class="teams__list">
+              <li class="teams__item">
+                <div class="teams__row"><span class="teams__place teams__place_first">1</span><span class="teams__name">Люди в курсе</span><span class="teams__points">1018</span></div>
+                <div class="teams__bar"><span class="teams__fill" style="--value:100%"></span></div>
+              </li>
+              <li class="teams__item">
+                <div class="teams__row"><span class="teams__place">2</span><span class="teams__name">LSE</span><span class="teams__points">841</span></div>
+                <div class="teams__bar"><span class="teams__fill" style="--value:83%"></span></div>
+              </li>
+              <li class="teams__item">
+                <div class="teams__row"><span class="teams__place">3</span><span class="teams__name">Школа дрифта MAX RACING EXPERIENCE</span><span class="teams__points">811</span></div>
+                <div class="teams__bar"><span class="teams__fill" style="--value:80%"></span></div>
+              </li>
+              <li class="teams__item">
+                <div class="teams__row"><span class="teams__place">4</span><span class="teams__name">BAZA DRIFT TEAM</span><span class="teams__points">509</span></div>
+                <div class="teams__bar"><span class="teams__fill" style="--value:50%"></span></div>
+              </li>
+            </ol>
+          </aside>
+        </div>
+      </div>
+    </section>
+
+    <!-- СЕЗОН -->
+    <section class="section section_flush season" id="season" aria-labelledby="season-title">
+      <div class="container">
+        <header class="section__head" data-reveal="up">
+          <div class="section__heading">
+            <h2 class="section__title" id="season-title">Сезон 2026</h2>
+            <p class="section__subtitle">Четыре этапа «Летнего кубка ULD»</p>
+          </div>
+          <a class="section__link" href="#season">Календарь</a>
+        </header>
+
+        <ul class="season__list">
+          <li class="stage season__item" data-reveal="up" style="--i:0">
+            <div class="stage__top"><span class="stage__number">1 этап</span><span class="stage__status">Завершён</span></div>
+            <h3 class="stage__date">7 июня</h3>
+            <div class="stage__results">
+              <p class="stage__caption">Топ-3 по очкам этапа</p>
+              <ol class="stage__podium">
+                <li class="stage__pilot stage__pilot_first"><span class="stage__pos">1</span><span class="stage__name">Алексей Мосейчук</span><span class="stage__points">231</span></li>
+                <li class="stage__pilot"><span class="stage__pos">2</span><span class="stage__name">Семён Васильев</span><span class="stage__points">210</span></li>
+                <li class="stage__pilot"><span class="stage__pos">3</span><span class="stage__name">Владимир Вовк</span><span class="stage__points">179</span></li>
+              </ol>
+            </div>
+            <a class="stage__link" href="#standings">Результаты этапа</a>
+          </li>
+          <li class="stage season__item" data-reveal="up" style="--i:1">
+            <div class="stage__top"><span class="stage__number">2 этап</span><span class="stage__status">Завершён</span></div>
+            <h3 class="stage__date">12 июля</h3>
+            <div class="stage__results">
+              <p class="stage__caption">Топ-3 по очкам этапа</p>
+              <ol class="stage__podium">
+                <li class="stage__pilot stage__pilot_first"><span class="stage__pos">1</span><span class="stage__name">Евгений Корнев</span><span class="stage__points">222</span></li>
+                <li class="stage__pilot"><span class="stage__pos">2</span><span class="stage__name">Владимир Вовк</span><span class="stage__points">197</span></li>
+                <li class="stage__pilot"><span class="stage__pos">3</span><span class="stage__name">Максим Ахтямов</span><span class="stage__points">185</span></li>
+              </ol>
+            </div>
+            <a class="stage__link" href="#standings">Результаты этапа</a>
+          </li>
+          <li class="stage season__item" data-reveal="up" style="--i:2">
+            <div class="stage__top"><span class="stage__number">3 этап</span><span class="stage__status">Завершён</span></div>
+            <h3 class="stage__date">30 августа</h3>
+            <div class="stage__results">
+              <p class="stage__caption">Топ-3 по очкам этапа</p>
+              <ol class="stage__podium">
+                <li class="stage__pilot stage__pilot_first"><span class="stage__pos">1</span><span class="stage__name">Максим Ахтямов</span><span class="stage__points">222</span></li>
+                <li class="stage__pilot"><span class="stage__pos">2</span><span class="stage__name">Семён Васильев</span><span class="stage__points">191</span></li>
+                <li class="stage__pilot"><span class="stage__pos">3</span><span class="stage__name">Евгений Корнев</span><span class="stage__points">179</span></li>
+              </ol>
+            </div>
+            <a class="stage__link" href="#standings">Результаты этапа</a>
+          </li>
+          <li class="stage stage_final season__item" data-reveal="up" style="--i:3">
+            <div class="stage__top"><span class="stage__number">4 этап</span><span class="chip chip_theme_dark">Финал</span></div>
+            <h3 class="stage__date">27 сентября</h3>
+            <p class="stage__text">Трасса 74, Челябинск. Три пилота в 28 очках друг от друга — титул разыграют здесь.</p>
+            <a class="button button_theme_dark stage__button" href="#tickets">Купить билет</a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ТРАНСЛЯЦИЯ -->
+    <section class="section live" id="live" aria-labelledby="live-title">
+      <div class="container live__inner">
+        <a class="player live__player" href="#live" data-reveal="left" aria-label="Открыть трансляцию">
+          <div class="photo player__photo"><span class="photo__label">Фото</span><span class="photo__caption">Машина с дымом</span></div>
+          <span class="chip chip_theme_live player__badge">Live</span>
+          <span class="player__play" aria-hidden="true">
+            <svg class="player__icon" width="22" height="24" viewBox="0 0 22 24"><path d="M0 0L22 12L0 24V0Z" fill="currentColor"/></svg>
+          </span>
+        </a>
+        <div class="live__content" data-reveal="right">
+          <span class="chip chip_theme_red">Прямой эфир</span>
+          <h2 class="section__title live__title" id="live-title">Смотри финал на сайте</h2>
+          <p class="live__text">Собственная трансляция ULD: без рекламы и сторонних площадок. Эфир начнётся в день этапа.</p>
+          <ul class="live__features">
+            <li class="live__feature">Несколько камер и повторы заездов</li>
+            <li class="live__feature">Сетка парных заездов в реальном времени</li>
+            <li class="live__feature">Чат болельщиков</li>
+          </ul>
+          <a class="button live__button" href="#live">Перейти к трансляции</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- НОВОСТИ -->
+    <section class="section news" id="news" aria-labelledby="news-title">
+      <div class="container">
+        <header class="section__head" data-reveal="up">
+          <div class="section__heading"><h2 class="section__title" id="news-title">Новости</h2></div>
+          <a class="section__link" href="#news">Все новости</a>
+        </header>
+        <ul class="news__list">
+          <li class="news__item" data-reveal="up" style="--i:0">
+            <a class="news-card" href="#news">
+              <div class="photo news-card__photo"><span class="photo__label">Фото</span><span class="photo__caption">Машина с дымом</span></div>
+              <time class="news-card__date" datetime="2026-09-10">10 сентября 2026</time>
+              <h3 class="news-card__title">Это финал!</h3>
+              <p class="news-card__text">Три этапа позади. Васильев, Вовк и Мосейчук идут практически бок о бок — чемпионство решится на финале.</p>
+            </a>
+          </li>
+          <li class="news__item" data-reveal="up" style="--i:1">
+            <a class="news-card" href="#news">
+              <div class="photo news-card__photo"><span class="photo__label">Фото</span><span class="photo__caption">Машина с дымом</span></div>
+              <time class="news-card__date" datetime="2026-08-24">24 августа 2026</time>
+              <h3 class="news-card__title">Третий этап. Возможно решающий</h3>
+              <p class="news-card__text">30 августа Трасса 74 снова взорвётся рёвом моторов. Екатеринбург против Челябинска.</p>
+            </a>
+          </li>
+          <li class="news__item" data-reveal="up" style="--i:2">
+            <a class="news-card" href="#news">
+              <div class="photo news-card__photo"><span class="photo__label">Фото</span><span class="photo__caption">Машина с дымом</span></div>
+              <time class="news-card__date" datetime="2026-07-01">1 июля 2026</time>
+              <h3 class="news-card__title">ULD 2026. Второй этап</h3>
+              <p class="news-card__text">Второй этап уже близко, и ставки становятся только выше.</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ПАРТНЁРЫ -->
+    <section class="section section_flush partners" aria-labelledby="partners-title">
+      <div class="container">
+        <h2 class="partners__title" id="partners-title" data-reveal="up">Партнёры лиги</h2>
+        <ul class="partners__list">
+          <li class="partners__item" data-reveal="up" style="--i:0">VOLT</li>
+          <li class="partners__item" data-reveal="up" style="--i:1">LAVR</li>
+          <li class="partners__item" data-reveal="up" style="--i:2">TEBOIL</li>
+          <li class="partners__item" data-reveal="up" style="--i:3">Линзы Даром</li>
+          <li class="partners__item" data-reveal="up" style="--i:4">Аквариум</li>
+          <li class="partners__item" data-reveal="up" style="--i:0">ADEPT</li>
+          <li class="partners__item" data-reveal="up" style="--i:1">ЧелРАФ</li>
+          <li class="partners__item" data-reveal="up" style="--i:2">ВОА</li>
+          <li class="partners__item" data-reveal="up" style="--i:3">На Труда</li>
+          <li class="partners__item" data-reveal="up" style="--i:4">CleanAuto</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- ПОДВАЛ -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer__top">
+        <div class="footer__about">
+          <a class="logo footer__logo" href="./" aria-label="ULD — Уральская Лига Дрифта">
+            <img class="logo__img" src="img/logo.svg" width="214" height="56" alt="" loading="lazy">
+          </a>
+          <p class="footer__text">Чемпионат УрФО по дрифту. Проводим этапы на Урале с 2010 года.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Разделы сайта">
+          <div class="footer__col">
+            <h3 class="footer__heading">Зрителям</h3>
+            <ul class="footer__list">
+              <li class="footer__item"><a class="footer__link" href="#tickets">Билеты</a></li>
+              <li class="footer__item"><a class="footer__link" href="#season">Этапы</a></li>
+              <li class="footer__item"><a class="footer__link" href="#live">Трансляция</a></li>
+              <li class="footer__item"><a class="footer__link" href="#season">Как добраться</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h3 class="footer__heading">Лига</h3>
+            <ul class="footer__list">
+              <li class="footer__item"><a class="footer__link" href="#standings">Результаты</a></li>
+              <li class="footer__item"><a class="footer__link" href="#standings">Пилоты</a></li>
+              <li class="footer__item"><a class="footer__link" href="#standings">Команды</a></li>
+              <li class="footer__item"><a class="footer__link" href="#news">Новости</a></li>
+              <li class="footer__item"><a class="footer__link" href="#news">Фото и видео</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h3 class="footer__heading">Участникам</h3>
+            <ul class="footer__list">
+              <li class="footer__item"><a class="footer__link" href="#footer">Регистрация</a></li>
+              <li class="footer__item"><a class="footer__link" href="#footer">Регламент</a></li>
+              <li class="footer__item"><a class="footer__link" href="#footer">Технические требования</a></li>
+              <li class="footer__item"><a class="footer__link" href="#footer">Аккредитация СМИ</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h3 class="footer__heading">Контакты</h3>
+            <ul class="footer__list">
+              <li class="footer__item"><a class="footer__link" href="mailto:info@uraldrift.ru">info@uraldrift.ru</a></li>
+              <li class="footer__item"><a class="footer__link" href="tel:+79097433347">+7-909-74-333-47</a></li>
+              <li class="footer__item"><a class="footer__link" href="https://max.ru/uraldrift" target="_blank" rel="noopener">MAX</a></li>
+              <li class="footer__item"><a class="footer__link" href="https://rutube.ru/channel/24253576/" target="_blank" rel="noopener">Rutube</a></li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="footer__bottom">
+        <p class="footer__copy">© 2010–2026 ULD — Уральская Лига Дрифта ®</p>
+        <a class="footer__policy" href="#footer">Политика конфиденциальности</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

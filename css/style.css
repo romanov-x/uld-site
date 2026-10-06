@@ -1,0 +1,1775 @@
+/* ==========================================================================
+   ULD — Уральская Лига Дрифта. Главная страница
+   Методология: БЕМ (блок__элемент_модификатор)
+   Брейкпоинты: 1480+ (широкий) · 1024–1479 (ноутбук) · 768–1023 (планшет) · до 767 (телефон)
+   ========================================================================== */
+
+/* ---------- Токены ---------- */
+:root {
+  --color-bg: #0a0a0b;
+  --color-surface: #131315;
+  --color-surface-2: #1b1b1e;
+  --color-surface-3: #242428;
+  --color-line: #2c2c31;
+  --color-accent: #f1cb31;
+  --color-text: #ffffff;
+  --color-text-2: #a9a9b2;
+  --color-text-3: #6e6e78;
+  --color-live: #ff3b30;
+
+  --font-display: "Sofia Sans Extra Condensed", "Arial Narrow", Impact, sans-serif;
+  --font-text: "Onest", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --container: 1200px;
+  --gutter: 40px;
+  --section-gap: 96px;
+  --header-height: 76px;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-drift: cubic-bezier(0.22, 1.2, 0.36, 1);
+}
+
+/* ---------- База ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.page {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+  -webkit-text-size-adjust: 100%;
+}
+
+.page__body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-text);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+.page__body_locked {
+  overflow: hidden;
+}
+
+h1, h2, h3, p, ul, ol, table {
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+.main {
+  overflow-x: clip;
+}
+
+.container {
+  width: min(var(--container), 100% - var(--gutter) * 2);
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 200;
+  padding: 10px 16px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-weight: 700;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ---------- Кнопка ---------- */
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 24px;
+  border: 1px solid var(--color-accent);
+  border-radius: 2px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.3;
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  isolation: isolate;
+  transition: color 0.3s, border-color 0.3s, transform 0.3s var(--ease-out);
+}
+
+/* «занос»: скошенная заливка выезжает слева */
+.button::before {
+  content: "";
+  position: absolute;
+  inset: 0 -20%;
+  z-index: -1;
+  background: var(--color-text);
+  transform: translateX(-110%) skewX(-18deg);
+  transition: transform 0.45s var(--ease-out);
+}
+
+.button:hover::before {
+  transform: translateX(0) skewX(-18deg);
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+.button_size_s {
+  padding: 10px 18px;
+  font-size: 13px;
+}
+
+.button_theme_outline {
+  background: transparent;
+  border-color: var(--color-text);
+  color: var(--color-text);
+}
+
+.button_theme_outline:hover {
+  color: var(--color-bg);
+}
+
+.button_theme_dark {
+  background: var(--color-bg);
+  border-color: var(--color-bg);
+  color: var(--color-accent);
+}
+
+.button_theme_dark::before {
+  background: var(--color-surface-3);
+}
+
+/* ---------- Чип ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 2px;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.chip_theme_dark {
+  background: var(--color-bg);
+  color: var(--color-accent);
+}
+
+.chip_theme_red,
+.chip_theme_live {
+  background: var(--color-live);
+  color: var(--color-text);
+}
+
+.chip_theme_live::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: currentColor;
+  animation: blink 1.4s steps(2, jump-none) infinite;
+}
+
+/* ---------- Фото-заглушка ---------- */
+.photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-line);
+  overflow: hidden;
+}
+
+.photo__label {
+  color: var(--color-text-3);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.photo__caption {
+  color: var(--color-text-2);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* ---------- Логотип ---------- */
+.logo {
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.logo__img {
+  width: auto;
+  height: 100%;
+}
+
+/* ---------- Шапка ---------- */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--header-height);
+  background: rgba(10, 10, 11, 0.86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--color-line);
+  transition: transform 0.45s var(--ease-out);
+}
+
+.header_hidden {
+  transform: translateY(-100%);
+}
+
+.header__inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  height: 100%;
+}
+
+.header__logo {
+  height: 44px;
+}
+
+.header__nav {
+  margin-right: auto;
+}
+
+.header__link {
+  color: var(--color-text-2);
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.header__link:hover {
+  color: var(--color-text);
+}
+
+.header__burger {
+  display: none;
+}
+
+/* ---------- Навигация ---------- */
+.nav__list {
+  display: flex;
+  gap: 28px;
+}
+
+.nav__link {
+  position: relative;
+  display: block;
+  padding: 8px 0;
+  color: var(--color-text-2);
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav__link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--color-accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease-out);
+}
+
+.nav__link:hover {
+  color: var(--color-text);
+}
+
+.nav__link:hover::after {
+  transform: scaleX(1);
+}
+
+/* ---------- Бургер ---------- */
+.burger {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.burger__line {
+  position: absolute;
+  left: 10px;
+  width: 24px;
+  height: 2px;
+  background: var(--color-text);
+  transition: transform 0.35s var(--ease-out), opacity 0.2s;
+}
+
+.burger__line:nth-child(1) { top: 15px; }
+.burger__line:nth-child(2) { top: 21px; }
+.burger__line:nth-child(3) { top: 27px; }
+
+.burger_active .burger__line:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.burger_active .burger__line:nth-child(2) { opacity: 0; }
+.burger_active .burger__line:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ---------- Мобильное меню (выезжает справа) ---------- */
+.menu {
+  position: fixed;
+  inset: var(--header-height) 0 0 0;
+  z-index: 90;
+  visibility: hidden;
+  transition: visibility 0s 0.5s;
+}
+
+.menu_open {
+  visibility: visible;
+  transition-delay: 0s;
+}
+
+.menu__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+
+.menu_open .menu__overlay {
+  opacity: 1;
+}
+
+.menu__panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  width: min(420px, 100%);
+  padding: 24px var(--gutter) 32px;
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-line);
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.5s var(--ease-out);
+}
+
+.menu_open .menu__panel {
+  transform: translateX(0);
+}
+
+.menu__nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu__link {
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-line);
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateX(48px);
+  transition: opacity 0.4s, transform 0.5s var(--ease-out), color 0.2s;
+}
+
+.menu__link:hover {
+  color: var(--color-accent);
+}
+
+.menu_open .menu__link {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.menu_open .menu__link:nth-child(1) { transition-delay: 0.10s; }
+.menu_open .menu__link:nth-child(2) { transition-delay: 0.14s; }
+.menu_open .menu__link:nth-child(3) { transition-delay: 0.18s; }
+.menu_open .menu__link:nth-child(4) { transition-delay: 0.22s; }
+.menu_open .menu__link:nth-child(5) { transition-delay: 0.26s; }
+.menu_open .menu__link:nth-child(6) { transition-delay: 0.30s; }
+.menu_open .menu__link:nth-child(7) { transition-delay: 0.34s; }
+
+.menu__footer {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 32px;
+}
+
+.menu__button {
+  margin-bottom: 8px;
+}
+
+.menu__contact {
+  color: var(--color-text-2);
+  font-size: 15px;
+}
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 720px;
+  overflow: hidden;
+}
+
+.hero__media {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 37.5%;
+  animation: hero-media 1.2s var(--ease-out) both;
+}
+
+.hero__media::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 58%;
+  background: linear-gradient(90deg, var(--color-bg), rgba(10, 10, 11, 0));
+}
+
+.hero__photo {
+  width: 100%;
+  height: 100%;
+}
+
+.hero__inner {
+  position: relative;
+  padding-block: 72px;
+}
+
+.hero__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.hero__tag {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  animation: slide-up 0.7s var(--ease-out) 0.1s both;
+}
+
+.hero__tag-text {
+  color: var(--color-text-2);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.hero__title {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+/* строка-маска: текст «заносит» слева */
+.hero__title-line {
+  display: block;
+  overflow: hidden;
+  padding-right: 0.08em;
+}
+
+.hero__title-main,
+.hero__title-sub {
+  display: block;
+  animation: drift-in 0.9s var(--ease-drift) both;
+}
+
+.hero__title-main {
+  font-size: clamp(88px, 13.9vw, 200px);
+  line-height: 0.84;
+  animation-delay: 0.15s;
+}
+
+.hero__title-sub {
+  color: var(--color-accent);
+  font-size: clamp(36px, 4.45vw, 64px);
+  line-height: 1;
+  animation-delay: 0.3s;
+}
+
+.hero__meta {
+  font-size: 18px;
+  font-weight: 500;
+  animation: slide-up 0.7s var(--ease-out) 0.45s both;
+}
+
+.hero__countdown {
+  animation: slide-up 0.7s var(--ease-out) 0.55s both;
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  animation: slide-up 0.7s var(--ease-out) 0.65s both;
+}
+
+/* ---------- Таймер ---------- */
+.countdown {
+  display: flex;
+  gap: 8px;
+}
+
+.countdown__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 92px;
+  padding: 10px 0 12px;
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-line);
+  overflow: hidden;
+}
+
+.countdown__value {
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.countdown__value_tick {
+  animation: tick 0.4s var(--ease-out);
+}
+
+.countdown__label {
+  color: var(--color-text-2);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+/* ---------- Борьба за титул ---------- */
+.fight {
+  background: var(--color-surface);
+  border-block: 1px solid var(--color-line);
+}
+
+.fight__inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  padding-block: 28px;
+}
+
+.fight__head {
+  flex: 0 0 150px;
+}
+
+.fight__title {
+  color: var(--color-accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.fight__note {
+  margin-top: 4px;
+  color: var(--color-text-2);
+  font-size: 13px;
+}
+
+.fight__list {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+}
+
+.fight__item {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+  padding-inline: 28px;
+  border-left: 1px solid var(--color-line);
+}
+
+.fight__item:first-child {
+  padding-left: 0;
+  border-left: 0;
+}
+
+.fight__item:last-child {
+  padding-right: 0;
+}
+
+.fight__place {
+  color: var(--color-text-3);
+  font-family: var(--font-display);
+  font-size: 56px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.fight__place_first {
+  color: var(--color-accent);
+}
+
+.fight__pilot {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  margin-right: auto;
+}
+
+.fight__name {
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.fight__info {
+  color: var(--color-text-2);
+  font-size: 13px;
+}
+
+.fight__score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.fight__points {
+  font-family: var(--font-display);
+  font-size: 40px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.fight__gap {
+  color: var(--color-text-3);
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ---------- Секция ---------- */
+.section {
+  padding-block: var(--section-gap);
+}
+
+.section_flush {
+  padding-top: 0;
+}
+
+.section__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 48px;
+}
+
+.section__title {
+  font-family: var(--font-display);
+  font-size: 72px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.section__subtitle {
+  margin-top: 12px;
+  color: var(--color-text-2);
+}
+
+.section__link {
+  flex-shrink: 0;
+  color: var(--color-accent);
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.section__link::after,
+.stage__link::after {
+  content: "→";
+  display: inline-block;
+  margin-left: 6px;
+  transition: transform 0.3s var(--ease-out);
+}
+
+.section__link:hover::after,
+.stage__link:hover::after {
+  transform: translateX(6px);
+}
+
+/* ---------- Билеты ---------- */
+.tickets__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.tickets__note {
+  margin-top: 48px;
+  color: var(--color-text-3);
+  font-size: 14px;
+}
+
+.ticket {
+  display: flex;
+  flex-direction: column;
+  padding: 32px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  transition: transform 0.4s var(--ease-out), border-color 0.3s;
+}
+
+.ticket:hover {
+  transform: translateY(-6px);
+  border-color: var(--color-text-3);
+}
+
+.ticket_featured {
+  background: var(--color-surface-2);
+  border: 2px solid var(--color-accent);
+}
+
+.ticket_featured:hover {
+  border-color: var(--color-accent);
+}
+
+.ticket__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 25px;
+  margin-bottom: 24px;
+}
+
+.ticket__name {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.ticket_featured .ticket__name {
+  color: var(--color-accent);
+}
+
+.ticket__price {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.ticket__value {
+  font-family: var(--font-display);
+  font-size: 88px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 0.86;
+  white-space: nowrap;
+}
+
+.ticket__currency {
+  color: var(--color-text-2);
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+.ticket__text {
+  margin-top: 8px;
+  color: var(--color-text-2);
+  font-size: 14px;
+}
+
+.ticket__perks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-block: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-line);
+}
+
+.ticket__perk,
+.live__feature {
+  position: relative;
+  padding-left: 18px;
+  color: var(--color-text-2);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.ticket__perk::before,
+.live__feature::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  background: var(--color-accent);
+}
+
+.ticket__button {
+  margin-top: auto;
+}
+
+/* ---------- Турнирная таблица ---------- */
+.standings__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  align-items: start;
+  gap: 48px;
+}
+
+.standings__caption,
+.teams__title {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.standings__caption {
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table__cell {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--color-line);
+  color: var(--color-text-2);
+  font-size: 14px;
+  font-weight: 500;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table__head .table__cell {
+  padding-top: 0;
+  color: var(--color-text-3);
+  font-size: 12px;
+}
+
+.table__head abbr {
+  text-decoration: none;
+}
+
+.table__cell:first-child { padding-left: 20px; }
+.table__cell:last-child { padding-right: 20px; }
+
+.table__cell_type_place {
+  width: 56px;
+  color: var(--color-text-3);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.table__head .table__cell_type_place {
+  font-family: var(--font-text);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.table__cell_top {
+  color: var(--color-accent);
+}
+
+.table__cell_type_num {
+  width: 52px;
+}
+
+.table__cell_type_stage {
+  width: 64px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.table__cell_type_total {
+  width: 80px;
+  color: var(--color-text);
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1;
+  text-align: right;
+}
+
+.table__head .table__cell_type_total {
+  color: var(--color-text-3);
+  font-family: var(--font-text);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.table__name {
+  display: block;
+  color: var(--color-text);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.table__info {
+  display: block;
+  margin-top: 2px;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.table__body .table__row {
+  transition: background-color 0.25s;
+}
+
+.table__body .table__row:hover,
+.table__row_leader {
+  background: var(--color-surface);
+}
+
+/* ---------- Командный зачёт ---------- */
+.teams {
+  padding: 28px 24px 12px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+}
+
+.teams__item {
+  padding-block: 16px;
+  border-bottom: 1px solid var(--color-line);
+}
+
+.teams__item:last-child {
+  border-bottom: 0;
+}
+
+.teams__row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.teams__place,
+.teams__points {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.teams__place {
+  color: var(--color-text-3);
+}
+
+.teams__place_first {
+  color: var(--color-accent);
+}
+
+.teams__name {
+  flex: 1;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.teams__bar {
+  height: 4px;
+  margin-top: 12px;
+  background: var(--color-surface-3);
+}
+
+.teams__fill {
+  display: block;
+  width: var(--value);
+  height: 100%;
+  background: var(--color-accent);
+  transform-origin: left;
+}
+
+/* полоса «разгоняется», когда блок появился */
+.reveal .teams__fill {
+  transform: scaleX(0);
+  transition: transform 1.1s var(--ease-out) 0.35s;
+}
+
+.reveal_visible .teams__fill {
+  transform: scaleX(1);
+}
+
+/* ---------- Сезон / этап ---------- */
+.season__list {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-height: 380px;
+  padding: 24px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+}
+
+.stage_final {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-bg);
+}
+
+.stage__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 25px;
+}
+
+.stage__number {
+  color: var(--color-text-3);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.stage_final .stage__number {
+  color: var(--color-bg);
+}
+
+.stage__status {
+  color: var(--color-text-3);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.stage__date {
+  font-family: var(--font-display);
+  font-size: 48px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.stage__results {
+  padding-top: 20px;
+  border-top: 1px solid var(--color-line);
+}
+
+.stage__caption {
+  margin-bottom: 10px;
+  color: var(--color-text-3);
+  font-size: 12px;
+}
+
+.stage__podium {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.stage__pilot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--color-text-2);
+  font-size: 14px;
+}
+
+.stage__pilot_first {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.stage__pos {
+  width: 12px;
+  color: var(--color-text-3);
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.stage__pilot_first .stage__pos {
+  color: var(--color-accent);
+}
+
+.stage__name {
+  flex: 1;
+}
+
+.stage__points {
+  color: var(--color-text-2);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.stage__link {
+  margin-top: auto;
+  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.stage__text {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.45;
+}
+
+.stage__button {
+  margin-top: auto;
+}
+
+/* ---------- Трансляция ---------- */
+.live {
+  background: var(--color-surface);
+}
+
+.live__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 64px;
+}
+
+.live__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.live__text {
+  color: var(--color-text-2);
+  line-height: 1.5;
+}
+
+.live__features {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.player {
+  position: relative;
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+.player__photo {
+  width: 100%;
+  height: 100%;
+  padding-top: 120px;
+  transition: transform 0.8s var(--ease-out);
+}
+
+.player:hover .player__photo {
+  transform: scale(1.04);
+}
+
+.player__badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+}
+
+.player__play {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  margin: -56px 0 0 -36px;
+  padding-left: 5px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-bg);
+  transition: transform 0.4s var(--ease-drift);
+}
+
+.player__play::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid var(--color-accent);
+  animation: pulse 2.2s var(--ease-out) infinite;
+}
+
+.player:hover .player__play {
+  transform: scale(1.12);
+}
+
+/* ---------- Новости ---------- */
+.news__list {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.news-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.news-card__photo {
+  aspect-ratio: 16 / 9;
+  transition: transform 0.6s var(--ease-out), border-color 0.3s;
+}
+
+.news-card:hover .news-card__photo {
+  transform: translateY(-6px);
+  border-color: var(--color-accent);
+}
+
+.news-card__date {
+  color: var(--color-text-3);
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.news-card__title {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-style: italic;
+  font-weight: 900;
+  line-height: 0.95;
+  text-transform: uppercase;
+  transition: color 0.25s;
+}
+
+.news-card:hover .news-card__title {
+  color: var(--color-accent);
+}
+
+.news-card__text {
+  color: var(--color-text-2);
+  font-size: 15px;
+}
+
+/* ---------- Партнёры ---------- */
+.partners__title {
+  margin-bottom: 24px;
+  color: var(--color-text-3);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.partners__list {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+
+.partners__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88px;
+  padding: 8px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  color: var(--color-text-2);
+  font-weight: 700;
+  text-align: center;
+  transition: color 0.25s, border-color 0.25s;
+}
+
+.partners__item:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-3);
+}
+
+/* ---------- Подвал ---------- */
+.footer {
+  padding: 64px 0 40px;
+  background: var(--color-surface);
+}
+
+.live + .section {
+  /* секция после «Трансляции» остаётся на тёмном фоне */
+  background: var(--color-bg);
+}
+
+.footer__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 64px;
+}
+
+.footer__about {
+  flex: 0 0 300px;
+}
+
+.footer__logo {
+  height: 56px;
+}
+
+.footer__text {
+  margin-top: 16px;
+  color: var(--color-text-2);
+  font-size: 14px;
+}
+
+.footer__nav {
+  display: flex;
+  gap: 64px;
+}
+
+.footer__heading {
+  margin-bottom: 12px;
+  color: var(--color-text-3);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.footer__list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer__link {
+  color: var(--color-text-2);
+  font-size: 14px;
+  transition: color 0.2s;
+}
+
+.footer__link:hover {
+  color: var(--color-accent);
+}
+
+.footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px 24px;
+  flex-wrap: wrap;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-line);
+  color: var(--color-text-3);
+  font-size: 13px;
+}
+
+.footer__policy:hover {
+  color: var(--color-text);
+}
+
+/* ---------- Появление при прокрутке (классы ставит js/main.js) ---------- */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.7s var(--ease-out), transform 0.9s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 90ms);
+  will-change: opacity, transform;
+}
+
+.reveal_from_up { transform: translateY(48px); }
+.reveal_from_left { transform: translateX(-64px); }
+.reveal_from_right { transform: translateX(64px); }
+
+.reveal_visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* после появления возвращаем обычные переходы (hover и т. п.) */
+.reveal_done {
+  transition-delay: 0s;
+  will-change: auto;
+}
+
+.ticket.reveal_done {
+  transition: transform 0.4s var(--ease-out), border-color 0.3s;
+}
+
+/* ---------- Ключевые кадры ---------- */
+@keyframes drift-in {
+  from { transform: translateX(-18%) skewX(-14deg); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(32px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@keyframes hero-media {
+  from { transform: translateX(12%); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@keyframes tick {
+  from { transform: translateY(-40%); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+@keyframes blink {
+  50% { opacity: 0.25; }
+}
+
+@keyframes pulse {
+  from { transform: scale(1); opacity: 0.9; }
+  to { transform: scale(1.7); opacity: 0; }
+}
+
+/* ==========================================================================
+   Широкий экран: 1480+
+   ========================================================================== */
+@media (min-width: 1480px) {
+  :root {
+    --container: 1400px;
+    --section-gap: 120px;
+    --header-height: 84px;
+  }
+
+  .hero { min-height: 820px; }
+  .hero__title-main { font-size: clamp(200px, 12.4vw, 248px); }
+  .hero__title-sub { font-size: clamp(64px, 4vw, 80px); }
+  .hero__meta { font-size: 20px; }
+  .countdown__item { width: 104px; }
+  .countdown__value { font-size: 64px; }
+
+  .section__title { font-size: 88px; }
+  .nav__list { gap: 36px; }
+  .nav__link, .header__link { font-size: 15px; }
+
+  .standings__grid { grid-template-columns: minmax(0, 1fr) 460px; gap: 64px; }
+  .stage__date { font-size: 56px; }
+  .news-card__title { font-size: 44px; }
+  .ticket { padding: 40px; }
+  .ticket__value { font-size: 104px; }
+}
+
+/* ==========================================================================
+   Ноутбук: до 1479 (уточнения для узких ноутбуков)
+   ========================================================================== */
+@media (max-width: 1279px) {
+  .header__inner { gap: 24px; }
+  .nav__list { gap: 20px; }
+  .header__link { display: none; }
+
+  .fight__inner { gap: 28px; }
+  .fight__item { padding-inline: 24px; gap: 12px; }
+  .fight__place { font-size: 44px; }
+  .fight__name { font-size: 15px; }
+  .fight__info { font-size: 12px; }
+
+  .standings__grid { grid-template-columns: minmax(0, 1fr) 340px; gap: 32px; }
+  .table__cell_type_num { display: none; }
+
+  .season__list { gap: 16px; }
+  .stage { padding: 20px; }
+  .stage__date { font-size: 40px; }
+
+  .live__inner { gap: 40px; }
+  .footer__top { gap: 40px; }
+  .footer__nav { gap: 40px; }
+  .footer__about { flex-basis: 240px; }
+}
+
+/* ==========================================================================
+   Планшет: 768–1023
+   ========================================================================== */
+@media (max-width: 1023px) {
+  :root {
+    --gutter: 32px;
+    --section-gap: 72px;
+    --header-height: 68px;
+  }
+
+  .header__nav { display: none; }
+  .header__button { margin-left: auto; }
+  .header__burger { display: block; }
+  .header__logo { height: 40px; }
+
+  .hero {
+    flex-direction: column;
+    align-items: stretch;
+    min-height: 0;
+  }
+
+  .hero__media {
+    position: relative;
+    left: 0;
+    height: 360px;
+  }
+
+  .hero__media::after {
+    inset: auto 0 0 0;
+    width: auto;
+    height: 50%;
+    background: linear-gradient(0deg, var(--color-bg), rgba(10, 10, 11, 0));
+  }
+
+  .hero__inner { padding-block: 8px 56px; }
+  .hero__title-main { font-size: clamp(88px, 21vw, 168px); }
+  .hero__title-sub { font-size: clamp(36px, 8.6vw, 68px); }
+
+  .fight__inner {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .fight__head { flex: none; }
+  .fight__list { flex-direction: column; }
+
+  .fight__item,
+  .fight__item:first-child,
+  .fight__item:last-child {
+    padding: 12px 0;
+    border-left: 0;
+    border-bottom: 1px solid var(--color-line);
+  }
+
+  .fight__item:last-child { border-bottom: 0; }
+  .fight__place { width: 32px; font-size: 40px; }
+
+  .section__head { margin-bottom: 36px; }
+  .section__title { font-size: 60px; }
+
+  .tickets__list { gap: 16px; }
+  .ticket { padding: 24px 20px; }
+  .ticket__top { flex-wrap: wrap; }
+  .ticket__value { font-size: 64px; }
+  .ticket__currency { font-size: 22px; }
+  .ticket__perk { font-size: 14px; }
+  .tickets__note { margin-top: 32px; }
+
+  .standings__grid { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+  .table__cell_type_num { display: table-cell; }
+
+  .season__list { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .stage { min-height: 340px; padding: 24px; }
+  .stage__date { font-size: 48px; }
+
+  .live__inner { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+
+  .news__list { gap: 20px; }
+  .news-card__title { font-size: 30px; }
+  .news-card__text { font-size: 14px; }
+
+  .partners__list { gap: 12px; }
+  .partners__item { height: 72px; font-size: 14px; }
+
+  .footer__top { flex-direction: column; gap: 40px; }
+  .footer__about { flex: none; }
+  .footer__nav { justify-content: space-between; gap: 24px; }
+}
+
+/* ==========================================================================
+   Телефон: до 767
+   ========================================================================== */
+@media (max-width: 767px) {
+  :root {
+    --gutter: 20px;
+    --section-gap: 48px;
+    --header-height: 60px;
+  }
+
+  .header__inner { gap: 6px; }
+  .header__logo { height: 36px; }
+  .header__button { padding: 9px 16px; }
+
+  .menu__link { font-size: 36px; }
+
+  .hero__media { height: 240px; }
+  .hero__inner { padding-block: 0 36px; }
+  .hero__content { gap: 18px; align-items: stretch; }
+  .hero__title { gap: 2px; }
+  .hero__title-main { font-size: clamp(72px, 23.6vw, 132px); }
+  .hero__title-sub { font-size: clamp(30px, 9.7vw, 54px); }
+  .hero__tag-text { font-size: 13px; }
+  .hero__meta { font-size: 15px; line-height: 1.4; }
+  .hero__actions { flex-direction: column; gap: 10px; }
+
+  .countdown__item { flex: 1; width: auto; padding: 8px 0 10px; }
+  .countdown__value { font-size: 40px; }
+  .countdown__label { font-size: 10px; letter-spacing: 0.08em; }
+
+  .fight__inner { padding-block: 28px 16px; }
+  .fight__name { font-size: 15px; }
+  .fight__points { font-size: 28px; }
+  .fight__place { width: 22px; font-size: 28px; }
+  .fight__gap { display: none; }
+
+  .section__head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .section__title { font-size: 44px; line-height: 0.92; }
+  .section__subtitle { margin-top: 8px; font-size: 14px; }
+
+  .tickets__list { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .ticket { padding: 20px; }
+  .ticket__top { margin-bottom: 14px; }
+  .ticket__price { gap: 6px; }
+  .ticket__value { font-size: 56px; }
+  .ticket__currency { font-size: 18px; }
+  .ticket__text { font-size: 13px; }
+  .ticket__perks { gap: 8px; margin-block: 14px 18px; padding-top: 14px; }
+  .tickets__note { margin-top: 20px; font-size: 13px; }
+
+  .standings__caption { margin-bottom: 12px; }
+  .table__head { display: none; }
+  .table__cell_type_stage,
+  .table__cell_type_num { display: none; }
+  .table__cell { padding: 12px 6px; }
+  .table__cell:first-child { padding-left: 0; }
+  .table__cell:last-child { padding-right: 0; }
+  .table__cell_type_place { width: 36px; }
+  .table__cell_type_total { width: 60px; }
+  .table__row_leader,
+  .table__body .table__row:hover { background: none; }
+  .table__info { font-size: 12px; }
+
+  .teams { padding: 20px 16px 4px; }
+
+  .season__list { grid-template-columns: minmax(0, 1fr); gap: 10px; }
+  .stage { min-height: 0; padding: 16px; gap: 14px; }
+  .stage__date { font-size: 40px; }
+  .stage__results { padding-top: 14px; }
+
+  .live__content { gap: 16px; align-items: stretch; }
+  .live__features { gap: 8px; }
+  .player__play { width: 56px; height: 56px; margin: -44px 0 0 -28px; }
+  .player__photo { padding-top: 90px; }
+
+  .news__list { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .news-card { gap: 12px; }
+  .news-card__title { font-size: 30px; }
+
+  .partners__list { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .partners__item { height: 64px; }
+
+  .footer { padding: 40px 0 32px; }
+  .footer__logo { height: 44px; }
+  .footer__nav { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px 20px; }
+  .footer__bottom { margin-top: 32px; padding-top: 20px; font-size: 12px; }
+
+  .reveal_from_left { transform: translateX(-32px); }
+  .reveal_from_right { transform: translateX(32px); }
+  .reveal_from_up { transform: translateY(32px); }
+}
+
+/* ---------- Уважение к настройке «меньше движения» ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .page { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .reveal .teams__fill { transform: none; }
+}
