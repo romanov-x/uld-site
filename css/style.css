@@ -456,8 +456,8 @@ button {
 .hero__media::after {
   content: "";
   position: absolute;
-  inset: 0 auto 0 0;
-  width: 58%;
+  inset: 0 auto 0 -2px;
+  width: calc(58% + 2px);
   background: linear-gradient(90deg, var(--color-bg), rgba(10, 10, 11, 0));
 }
 
@@ -1629,9 +1629,9 @@ button {
   }
 
   .hero__media::after {
-    inset: auto 0 0 0;
+    inset: auto 0 -2px 0;
     width: auto;
-    height: 50%;
+    height: calc(50% + 2px);
     background: linear-gradient(0deg, var(--color-bg), rgba(10, 10, 11, 0));
   }
 
