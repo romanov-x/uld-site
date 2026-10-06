@@ -1466,7 +1466,7 @@ button {
 .reveal_from_left { transform: translateX(-64px); }
 .reveal_from_right { transform: translateX(64px); }
 
-.reveal_visible {
+.reveal.reveal_visible {
   opacity: 1;
   transform: none;
 }
@@ -1731,7 +1731,8 @@ button {
   .stage__date { font-size: 40px; }
   .stage__results { padding-top: 14px; }
 
-  .live__content { gap: 16px; align-items: stretch; }
+  .live__content { gap: 16px; }
+  .live__button { align-self: stretch; }
   .live__features { gap: 8px; }
   .player__play { width: 56px; height: 56px; margin: -44px 0 0 -28px; }
   .player__photo { padding-top: 90px; }
