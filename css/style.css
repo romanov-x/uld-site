@@ -212,32 +212,6 @@ button {
   animation: blink 1.4s steps(2, jump-none) infinite;
 }
 
-/* ---------- Фото-заглушка ---------- */
-.photo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  background: var(--color-surface-2);
-  border: 1px solid var(--color-line);
-  overflow: hidden;
-}
-
-.photo__label {
-  color: var(--color-text-3);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.photo__caption {
-  color: var(--color-text-2);
-  font-size: 15px;
-  font-weight: 500;
-}
-
 /* ---------- Логотип ---------- */
 .logo {
   display: inline-block;
@@ -487,9 +461,17 @@ button {
   background: linear-gradient(90deg, var(--color-bg), rgba(10, 10, 11, 0));
 }
 
+.hero__picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .hero__photo {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: 62% 58%;
 }
 
 .hero__inner {
@@ -1249,10 +1231,16 @@ button {
   overflow: hidden;
 }
 
+.player__picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .player__photo {
   width: 100%;
   height: 100%;
-  padding-top: 120px;
+  object-fit: cover;
   transition: transform 0.8s var(--ease-out);
 }
 
@@ -1275,7 +1263,7 @@ button {
   justify-content: center;
   width: 72px;
   height: 72px;
-  margin: -56px 0 0 -36px;
+  margin: -36px 0 0 -36px;
   padding-left: 5px;
   border-radius: 50%;
   background: var(--color-accent);
@@ -1310,8 +1298,20 @@ button {
 }
 
 .news-card__photo {
-  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 384 / 461;
+  background: var(--color-surface);
+  border: 1px solid var(--color-line);
+  overflow: hidden;
   transition: transform 0.6s var(--ease-out), border-color 0.3s;
+}
+
+.news-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .news-card:hover .news-card__photo {
@@ -1371,12 +1371,26 @@ button {
   color: var(--color-text-2);
   font-weight: 700;
   text-align: center;
-  transition: color 0.25s, border-color 0.25s;
+  transition: border-color 0.25s;
 }
 
 .partners__item:hover {
-  color: var(--color-text);
   border-color: var(--color-text-3);
+}
+
+.partners__logo {
+  width: auto;
+  height: auto;
+  max-width: 58%;
+  max-height: 64px;
+  object-fit: contain;
+  opacity: 0.85;
+  transition: opacity 0.25s, transform 0.4s var(--ease-out);
+}
+
+.partners__item:hover .partners__logo {
+  opacity: 1;
+  transform: scale(1.06);
 }
 
 /* ---------- Подвал ---------- */
@@ -1651,7 +1665,8 @@ button {
   .news-card__text { font-size: 14px; }
 
   .partners__list { gap: 12px; }
-  .partners__item { height: 72px; font-size: 14px; }
+  .partners__item { height: 72px; }
+  .partners__logo { max-width: 70%; max-height: 48px; }
 
   .footer__top { flex-direction: column; gap: 40px; }
   .footer__about { flex: none; }
@@ -1737,15 +1752,15 @@ button {
   .live__content { gap: 16px; }
   .live__button { align-self: stretch; }
   .live__features { gap: 8px; }
-  .player__play { width: 56px; height: 56px; margin: -44px 0 0 -28px; }
-  .player__photo { padding-top: 90px; }
+  .player__play { width: 56px; height: 56px; margin: -28px 0 0 -28px; }
 
   .news__list { grid-template-columns: minmax(0, 1fr); gap: 28px; }
   .news-card { gap: 12px; }
   .news-card__title { font-size: 30px; }
 
   .partners__list { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .partners__item { height: 64px; }
+  .partners__item { height: 72px; }
+  .partners__logo { max-width: 60%; max-height: 46px; }
 
   .footer { padding: 40px 0 32px; }
   .footer__logo { height: 44px; }
