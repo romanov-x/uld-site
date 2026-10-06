@@ -619,13 +619,16 @@ button {
 
 .fight__inner {
   display: flex;
-  align-items: center;
-  gap: 28px;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
   padding-block: 28px;
 }
 
 .fight__head {
-  flex: 0 0 132px;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
 }
 
 .fight__title {
@@ -637,7 +640,6 @@ button {
 }
 
 .fight__note {
-  margin-top: 4px;
   color: var(--color-text-2);
   font-size: 13px;
 }
@@ -1521,8 +1523,9 @@ button {
     --header-height: 84px;
   }
 
-  .fight__inner { gap: 40px; }
-  .fight__head { flex-basis: 150px; }
+  .fight__inner { flex-direction: row; align-items: center; gap: 40px; }
+  .fight__head { display: block; flex: 0 0 150px; }
+  .fight__note { margin-top: 4px; }
   .fight__item { padding-inline: 40px; }
 
   .hero { min-height: 820px; }
