@@ -1703,7 +1703,7 @@ button {
 
   .tickets__list { grid-template-columns: minmax(0, 1fr); gap: 12px; }
   .ticket { padding: 20px; }
-  .ticket__top { margin-bottom: 14px; }
+  .ticket__top { min-height: 0; margin-bottom: 14px; }
   .ticket__price { gap: 6px; }
   .ticket__value { font-size: 56px; }
   .ticket__currency { font-size: 18px; }
